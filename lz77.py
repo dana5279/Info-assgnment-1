@@ -70,22 +70,3 @@ def decompress_file():
         pass
 
 
-def main():
-    while True:
-        print("\n===== LZ77 =====")
-        print("1. Compress   (file1.txt -> file2.txt)")
-        print("2. Decompress (file2.txt -> file3.txt)")
-        print("3. Exit")
-        choice = input("Choose: ").strip()
-        if choice == "1":
-            compress_file()
-        elif choice == "2":
-            decompress_file()
-        elif choice == "3":
-            break
-        else:
-            print("Invalid choice.")
-
-
-if __name__ == "__main__":
-    main()
