@@ -5,24 +5,6 @@ TAGS_FILE = "file2.txt"
 OUTPUT_FILE = "file3.txt"
 
 
-def compress(text, window=100, lookahead=50):
-    tags = []
-    i = 0
-    n = len(text)
-    while i < n:
-        best_len, best_off = 0, 0
-        start = max(0, i - window)
-        for j in range(start, i):
-            l = 0
-            while l < lookahead and i + l < n - 1 and text[j + l] == text[i + l]:
-                l += 1
-            if l > best_len:
-                best_len, best_off = l, i - j
-        tags.append((best_off, best_len, text[i + best_len]))
-        i += best_len + 1
-    return tags
-
-
 def decompress(tags):
     out = []
     for offset, length, next_char in tags:
@@ -31,25 +13,6 @@ def decompress(tags):
             out.append(out[start + k])
         out.append(next_char)
     return "".join(out)
-
-
-def compress_file():
-    try:
-        with open(INPUT_FILE, "r", encoding="utf-8", newline="") as f:
-            text = f.read()
-    except FileNotFoundError:
-        print(f"Error: {INPUT_FILE} not found.")
-        return
-    if not text:
-        print(f"Error: {INPUT_FILE} is empty.")
-        return
-    tags = compress(text)
-    with open(TAGS_FILE, "w", encoding="utf-8") as f:
-        for tag in tags:
-            f.write(repr(tag) + "\n")
-    print(f"Compressed {INPUT_FILE} -> {TAGS_FILE} ({len(tags)} tags):")
-    for tag in tags:
-        print(tag)
 
 
 def decompress_file():
