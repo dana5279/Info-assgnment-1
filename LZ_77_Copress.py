@@ -28,26 +28,24 @@ def compress(text, search_size=15, lookahead_size=15):
         result.append((best_offset, best_length, next_char))
         i = i + best_length + 1
     return result
+if __name__ == "__main__":
+    filename = input("Enter file name: ")
 
-filename = input("Enter file name: ")
+    with open(filename, "r", encoding="ascii", errors="ignore") as f:
+        text = f.read()
 
-with open(filename, "r", encoding="ascii", errors="ignore") as f:
-    text = f.read()
+    compressed = compress(text)
 
-compressed = compress(text)
+    with open("file2.txt", "w", encoding="utf-8") as f:
+        for triple in compressed:
+            f.write(str(triple) + "\n")
 
-with open("file2.txt", "w", encoding="utf-8") as f:
-    for triple in compressed:
-        f.write(str(triple) + "\n")
+    print("Original length:", len(text))
+    print("Number of triples:", len(compressed))
+    print()
 
-
-
-print("Original length:", len(text))
-print("Number of triples:", len(compressed))
-print()
-
-for step, triple in enumerate(compressed, start=1):
-    offset = triple[0]
-    length = triple[1]
-    next_char = triple[2]
-    print(step, offset, length, repr(next_char))
+    for step, triple in enumerate(compressed, start=1):
+        offset = triple[0]
+        length = triple[1]
+        next_char = triple[2]
+        print(step, offset, length, repr(next_char))
