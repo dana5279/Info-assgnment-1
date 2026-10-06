@@ -36,6 +36,12 @@ with open(filename, "r", encoding="ascii", errors="ignore") as f:
 
 compressed = compress(text)
 
+with open("file2.txt", "w", encoding="utf-8") as f:
+    for triple in compressed:
+        f.write(str(triple) + "\n")
+
+
+
 print("Original length:", len(text))
 print("Number of triples:", len(compressed))
 print()
