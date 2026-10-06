@@ -1,1 +1,1 @@
-print("LZ77 Main")
+import LZ_77
