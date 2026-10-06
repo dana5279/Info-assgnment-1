@@ -31,5 +31,7 @@ def decompress_file():
             print("Matches original:", f.read() == text)
     except FileNotFoundError:
         pass
+if __name__ == "__main__":
+    decompress_file()
 
 
